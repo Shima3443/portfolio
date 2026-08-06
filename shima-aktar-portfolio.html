@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mosammat Shima Aktar — AI &amp; Networking Researcher</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0A0E13;
+    --bg-elevated: #0F151C;
+    --surface: #141B23;
+    --surface-hi: #1A2029;
+    --line: #232D38;
+    --text: #E9EFF4;
+    --text-dim: #93A2AF;
+    --text-faint: #5C6B78;
+    --teal: #52D9CC;
+    --teal-dim: rgba(82,217,204,0.14);
+    --amber: #E8A94C;
+    --amber-dim: rgba(232,169,76,0.14);
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body: 'IBM Plex Sans', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-body);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  body::before{
+    content:'';
+    position:fixed; inset:0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:64px 64px;
+    opacity:0.25;
+    pointer-events:none;
+    z-index:0;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 20%, transparent 75%);
+  }
+
+  a{color:inherit; text-decoration:none;}
+  ::selection{background:var(--teal-dim); color:var(--teal);}
+
+  :focus-visible{
+    outline:2px solid var(--teal);
+    outline-offset:3px;
+  }
+
+  .wrap{max-width:1080px; margin:0 auto; padding:0 32px; position:relative; z-index:1;}
+
+  /* ---------- NAV ---------- */
+  header.nav{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background:rgba(10,14,19,0.72);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:1080px; margin:0 auto; padding:18px 32px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .nav-logo{
+    font-family:var(--font-mono); font-size:14px; letter-spacing:0.04em;
+    color:var(--text); font-weight:500;
+  }
+  .nav-logo span{color:var(--teal);}
+  .nav-links{
+    display:flex; gap:28px; list-style:none;
+    font-family:var(--font-mono); font-size:12.5px; letter-spacing:0.03em;
+  }
+  .nav-links a{
+    color:var(--text-dim); position:relative; padding:4px 0; transition:color .2s;
+  }
+  .nav-links a:hover{color:var(--text);}
+  .nav-links a::before{content:'';}
+  .nav-cta{
+    font-family:var(--font-mono); font-size:12px; letter-spacing:0.03em;
+    border:1px solid var(--line); padding:8px 14px; border-radius:3px;
+    color:var(--teal); transition:border-color .2s, background .2s;
+  }
+  .nav-cta:hover{border-color:var(--teal); background:var(--teal-dim);}
+  @media (max-width:760px){ .nav-links{display:none;} }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative; padding:168px 0 96px;
+    min-height:92vh; display:flex; align-items:center;
+  }
+  .hero-graph{
+    position:absolute; top:50%; right:-8%; transform:translateY(-50%);
+    width:640px; height:560px; opacity:0.9; pointer-events:none;
+  }
+  @media (max-width:900px){ .hero-graph{opacity:0.16; right:-20%; width:110%;} }
+
+  .hero-content{position:relative; z-index:2; max-width:640px;}
+  .eyebrow{
+    font-family:var(--font-mono); font-size:12.5px; letter-spacing:0.12em;
+    color:var(--teal); text-transform:uppercase; margin-bottom:22px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{
+    content:''; width:7px; height:7px; border-radius:50%;
+    background:var(--teal); box-shadow:0 0 0 3px var(--teal-dim);
+    animation:blink 2.4s ease-in-out infinite;
+  }
+  @keyframes blink{0%,100%{opacity:1;} 50%{opacity:0.35;}}
+
+  h1.hero-title{
+    font-family:var(--font-display); font-weight:600;
+    font-size:clamp(34px, 5vw, 54px); line-height:1.1;
+    letter-spacing:-0.01em; margin-bottom:22px;
+  }
+  h1.hero-title em{
+    font-style:normal; color:var(--teal);
+  }
+  .hero-sub{
+    color:var(--text-dim); font-size:16.5px; max-width:520px; margin-bottom:34px;
+  }
+  .hero-actions{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:44px;}
+  .btn{
+    font-family:var(--font-mono); font-size:13px; letter-spacing:0.02em;
+    padding:12px 20px; border-radius:3px; display:inline-flex; align-items:center; gap:8px;
+    transition:all .2s;
+  }
+  .btn-primary{background:var(--teal); color:#0A0E13; font-weight:600;}
+  .btn-primary:hover{background:#6ee4d8; transform:translateY(-1px);}
+  .btn-ghost{border:1px solid var(--line); color:var(--text);}
+  .btn-ghost:hover{border-color:var(--text-faint); background:var(--surface);}
+
+  .hero-meta{
+    display:flex; gap:28px; flex-wrap:wrap;
+    font-family:var(--font-mono); font-size:12.5px; color:var(--text-faint);
+  }
+  .hero-meta a{color:var(--text-dim); transition:color .2s;}
+  .hero-meta a:hover{color:var(--teal);}
+
+  /* ---------- SECTION SCAFFOLD ---------- */
+  section{padding:88px 0; position:relative; border-top:1px solid var(--line);}
+  .section-head{
+    display:flex; align-items:baseline; justify-content:space-between;
+    margin-bottom:44px; gap:20px; flex-wrap:wrap;
+  }
+  .section-label{
+    font-family:var(--font-mono); font-size:12px; letter-spacing:0.12em;
+    color:var(--amber); text-transform:uppercase;
+  }
+  h2.section-title{
+    font-family:var(--font-display); font-size:clamp(24px,3vw,32px);
+    font-weight:600; margin-top:8px;
+  }
+  .section-desc{color:var(--text-dim); font-size:14.5px; max-width:360px; text-align:right;}
+  @media (max-width:700px){ .section-desc{text-align:left;} }
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{display:grid; grid-template-columns:1.4fr 1fr; gap:56px;}
+  @media (max-width:760px){ .about-grid{grid-template-columns:1fr;} }
+  .about-text p{color:var(--text-dim); font-size:15.5px; margin-bottom:16px;}
+  .about-text strong{color:var(--text); font-weight:600;}
+  .stat-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px; align-content:start;}
+  .stat-card{
+    background:var(--surface); border:1px solid var(--line); border-radius:6px;
+    padding:20px 18px;
+  }
+  .stat-num{font-family:var(--font-display); font-size:30px; color:var(--teal); font-weight:600;}
+  .stat-label{font-family:var(--font-mono); font-size:11.5px; color:var(--text-faint); margin-top:4px; letter-spacing:0.02em;}
+
+  /* ---------- JOURNEY TIMELINE ---------- */
+  .timeline{position:relative; padding-left:32px;}
+  .timeline::before{
+    content:''; position:absolute; left:5px; top:6px; bottom:6px; width:1px;
+    background:linear-gradient(var(--line), var(--line));
+  }
+  .t-item{position:relative; padding-bottom:38px;}
+  .t-item:last-child{padding-bottom:0;}
+  .t-dot{
+    position:absolute; left:-32px; top:4px; width:11px; height:11px; border-radius:50%;
+    background:var(--bg); border:2px solid var(--text-faint);
+  }
+  .t-item.is-current .t-dot{border-color:var(--teal); background:var(--teal); box-shadow:0 0 0 4px var(--teal-dim);}
+  .t-year{font-family:var(--font-mono); font-size:12px; color:var(--teal); letter-spacing:0.04em; margin-bottom:6px;}
+  .t-title{font-family:var(--font-display); font-size:17px; font-weight:600; margin-bottom:4px;}
+  .t-org{font-size:13.5px; color:var(--text-faint); margin-bottom:8px;}
+  .t-desc{font-size:14px; color:var(--text-dim); max-width:560px;}
+  .t-tag{
+    display:inline-block; font-family:var(--font-mono); font-size:10.5px;
+    color:var(--amber); background:var(--amber-dim); padding:2px 8px; border-radius:3px;
+    margin-top:8px; letter-spacing:0.02em;
+  }
+
+  /* ---------- FEATURED THESIS ---------- */
+  .thesis-card{
+    background:linear-gradient(160deg, var(--surface), var(--bg-elevated));
+    border:1px solid var(--line); border-radius:10px; padding:44px;
+    position:relative; overflow:hidden;
+  }
+  .thesis-card::after{
+    content:''; position:absolute; top:-40%; right:-15%; width:340px; height:340px;
+    background:radial-gradient(circle, var(--teal-dim), transparent 70%);
+    pointer-events:none;
+  }
+  .thesis-badge{
+    font-family:var(--font-mono); font-size:11px; color:var(--teal); letter-spacing:0.06em;
+    border:1px solid var(--teal); display:inline-block; padding:4px 10px; border-radius:20px;
+    margin-bottom:20px; text-transform:uppercase;
+  }
+  .thesis-title{
+    font-family:var(--font-display); font-size:clamp(20px,2.6vw,27px); font-weight:600;
+    max-width:640px; margin-bottom:14px; position:relative;
+  }
+  .thesis-super{font-size:13.5px; color:var(--text-faint); margin-bottom:24px; position:relative;}
+  .thesis-super strong{color:var(--text-dim); font-weight:500;}
+  .thesis-list{list-style:none; display:grid; gap:12px; max-width:600px; position:relative;}
+  .thesis-list li{
+    font-size:14.5px; color:var(--text-dim); padding-left:22px; position:relative;
+  }
+  .thesis-list li::before{
+    content:'→'; position:absolute; left:0; color:var(--teal); font-family:var(--font-mono);
+  }
+
+  /* ---------- PUBLICATIONS ---------- */
+  .pub-list{display:flex; flex-direction:column;}
+  .pub-item{
+    display:grid; grid-template-columns:44px 1fr; gap:20px;
+    padding:26px 0; border-bottom:1px solid var(--line);
+  }
+  .pub-item:first-child{padding-top:0;}
+  .pub-num{font-family:var(--font-mono); color:var(--text-faint); font-size:14px; padding-top:2px;}
+  .pub-title{font-family:var(--font-display); font-size:16.5px; font-weight:600; margin-bottom:8px;}
+  .pub-authors{font-size:13.5px; color:var(--text-dim); margin-bottom:6px;}
+  .pub-authors .me{color:var(--teal); font-weight:600;}
+  .pub-venue{font-family:var(--font-mono); font-size:12px; color:var(--text-faint); letter-spacing:0.02em;}
+
+  /* ---------- PROJECTS ---------- */
+  .proj-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:18px;}
+  @media (max-width:820px){ .proj-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:560px){ .proj-grid{grid-template-columns:1fr;} }
+  .proj-card{
+    background:var(--surface); border:1px solid var(--line); border-radius:8px;
+    padding:24px; transition:border-color .2s, transform .2s;
+  }
+  .proj-card:hover{border-color:var(--teal); transform:translateY(-3px);}
+  .proj-tag{font-family:var(--font-mono); font-size:10.5px; color:var(--amber); letter-spacing:0.04em; text-transform:uppercase; margin-bottom:14px; display:block;}
+  .proj-name{font-family:var(--font-display); font-size:16px; font-weight:600; line-height:1.35;}
+
+  /* ---------- SKILLS ---------- */
+  .skills-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:36px;}
+  @media (max-width:760px){ .skills-grid{grid-template-columns:1fr 1fr;} }
+  @media (max-width:520px){ .skills-grid{grid-template-columns:1fr;} }
+  .skill-group-title{
+    font-family:var(--font-mono); font-size:12px; color:var(--text-faint);
+    text-transform:uppercase; letter-spacing:0.08em; margin-bottom:16px;
+  }
+  .skill-pills{display:flex; flex-wrap:wrap; gap:8px;}
+  .skill-pill{
+    font-family:var(--font-mono); font-size:12.5px; color:var(--text-dim);
+    border:1px solid var(--line); padding:6px 12px; border-radius:4px;
+    transition:border-color .2s, color .2s;
+  }
+  .skill-pill:hover{border-color:var(--teal); color:var(--teal);}
+
+  .lang-row{margin-bottom:16px;}
+  .lang-name{font-size:14px; color:var(--text); margin-bottom:6px; display:flex; justify-content:space-between;}
+  .lang-name span{font-family:var(--font-mono); font-size:11.5px; color:var(--teal);}
+  .lang-bar{height:5px; background:var(--surface); border-radius:3px; overflow:hidden;}
+  .lang-fill{height:100%; background:var(--teal);}
+
+  /* ---------- LEADERSHIP / AWARDS ---------- */
+  .la-grid{display:grid; grid-template-columns:1fr 1fr; gap:56px;}
+  @media (max-width:760px){ .la-grid{grid-template-columns:1fr;} }
+  .la-list{list-style:none; display:flex; flex-direction:column; gap:18px;}
+  .la-list li{
+    display:flex; justify-content:space-between; gap:16px;
+    padding-bottom:18px; border-bottom:1px solid var(--line); font-size:14.5px;
+  }
+  .la-list li:last-child{border-bottom:none; padding-bottom:0;}
+  .la-role{color:var(--text); font-weight:500;}
+  .la-org{color:var(--text-faint); font-size:12.5px; margin-top:3px; font-family:var(--font-mono);}
+  .la-date{font-family:var(--font-mono); font-size:12px; color:var(--text-faint); white-space:nowrap;}
+
+  /* ---------- CONTACT / FOOTER ---------- */
+  .contact-inner{text-align:center; padding-top:20px;}
+  .contact-inner .section-label{display:block; text-align:center;}
+  h2.contact-title{
+    font-family:var(--font-display); font-size:clamp(28px,4vw,44px); font-weight:600;
+    margin:16px auto 28px; max-width:640px;
+  }
+  .contact-title em{color:var(--teal); font-style:normal;}
+  .contact-links{display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-bottom:64px;}
+
+  footer{border-top:1px solid var(--line); padding:32px 0; font-family:var(--font-mono); font-size:12px; color:var(--text-faint);}
+  .footer-inner{display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;}
+
+  .refs{display:grid; grid-template-columns:1fr 1fr; gap:24px; max-width:640px; margin:0 auto 56px; text-align:left;}
+  @media (max-width:600px){ .refs{grid-template-columns:1fr;} }
+  .ref-card{background:var(--surface); border:1px solid var(--line); border-radius:6px; padding:18px 20px;}
+  .ref-name{font-weight:600; font-size:14px; margin-bottom:4px;}
+  .ref-role{font-size:12.5px; color:var(--text-faint); margin-bottom:10px;}
+  .ref-contact{font-family:var(--font-mono); font-size:11.5px; color:var(--text-dim); line-height:1.7;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="nav-logo">SHIMA<span>.</span>AKTAR</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#journey">Journey</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+    </ul>
+    <a class="nav-cta" href="#contact">Contact</a>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero" style="border-top:none; padding-top:168px;">
+    <div class="wrap" style="display:flex; align-items:center;">
+      <div class="hero-content">
+        <div class="eyebrow">AI &amp; Networking Research</div>
+        <h1 class="hero-title">Modeling networks that learn to <em>slice themselves.</em></h1>
+        <p class="hero-sub">I'm Shima — an undergraduate researcher at Jagannath University working at the intersection of graph neural networks, multi-agent reinforcement learning, and next-generation network design. My thesis builds AI-driven slicing for 5G-and-beyond networks in healthcare.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#publications">View publications</a>
+          <a class="btn btn-ghost" href="mailto:b190305024@cse.jnu.ac.bd">Get in touch</a>
+        </div>
+        <div class="hero-meta">
+          <span>Dhaka, Bangladesh</span>
+          <a href="mailto:b190305024@cse.jnu.ac.bd">b190305024@cse.jnu.ac.bd</a>
+          <a href="tel:+8801580298753">+880 1580 298753</a>
+        </div>
+      </div>
+    </div>
+    <svg class="hero-graph" viewBox="0 0 600 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <g id="edges" stroke="#52D9CC" stroke-opacity="0.35" stroke-width="1.4">
+        <line x1="300" y1="250" x2="300" y2="80"></line>
+        <line x1="300" y1="250" x2="447" y2="165"></line>
+        <line x1="300" y1="250" x2="447" y2="335"></line>
+        <line x1="300" y1="250" x2="300" y2="420"></line>
+        <line x1="300" y1="250" x2="153" y2="335"></line>
+        <line x1="300" y1="250" x2="153" y2="165"></line>
+        <line x1="300" y1="80" x2="447" y2="165" stroke-opacity="0.16"></line>
+        <line x1="447" y1="165" x2="447" y2="335" stroke-opacity="0.16"></line>
+        <line x1="447" y1="335" x2="300" y2="420" stroke-opacity="0.16"></line>
+        <line x1="300" y1="420" x2="153" y2="335" stroke-opacity="0.16"></line>
+        <line x1="153" y1="335" x2="153" y2="165" stroke-opacity="0.16"></line>
+        <line x1="153" y1="165" x2="300" y2="80" stroke-opacity="0.16"></line>
+      </g>
+      <g id="pulses"></g>
+      <g font-family="JetBrains Mono, monospace" font-size="12" fill="#93A2AF">
+        <g>
+          <circle class="node" cx="300" cy="250" r="26" fill="#0F151C" stroke="#52D9CC" stroke-width="1.6"></circle>
+          <text x="300" y="254" text-anchor="middle" fill="#E9EFF4" font-weight="600">AI</text>
+        </g>
+        <g>
+          <circle class="node" cx="300" cy="80" r="19" fill="#0F151C" stroke="#2C3A45" stroke-width="1.4"></circle>
+          <text x="300" y="84" text-anchor="middle">GNN</text>
+        </g>
+        <g>
+          <circle class="node" cx="447" cy="165" r="19" fill="#0F151C" stroke="#2C3A45" stroke-width="1.4"></circle>
+          <text x="447" y="169" text-anchor="middle">5G</text>
+        </g>
+        <g>
+          <circle class="node" cx="447" cy="335" r="19" fill="#0F151C" stroke="#2C3A45" stroke-width="1.4"></circle>
+          <text x="447" y="339" text-anchor="middle">SDN</text>
+        </g>
+        <g>
+          <circle class="node" cx="300" cy="420" r="19" fill="#0F151C" stroke="#2C3A45" stroke-width="1.4"></circle>
+          <text x="300" y="424" text-anchor="middle">Health</text>
+        </g>
+        <g>
+          <circle class="node" cx="153" cy="335" r="19" fill="#0F151C" stroke="#2C3A45" stroke-width="1.4"></circle>
+          <text x="153" y="339" text-anchor="middle">IoT</text>
+        </g>
+        <g>
+          <circle class="node" cx="153" cy="165" r="19" fill="#0F151C" stroke="#2C3A45" stroke-width="1.4"></circle>
+          <text x="153" y="169" text-anchor="middle">MARL</text>
+        </g>
+      </g>
+    </svg>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="section-label">01 / About</div>
+          <h2 class="section-title">Research interests</h2>
+        </div>
+        <p class="section-desc">Grounded in networking, sharpened by machine learning.</p>
+      </div>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>I work on <strong>artificial intelligence, machine learning, deep learning, and networking</strong> — with a particular focus on how graph-based learning can make communication networks smarter. As a Research Assistant in the Network and IoT Lab at Jagannath University, I study <strong>graph signal processing</strong> and <strong>graph neural networks</strong>, and build AI-driven network slicing and resource allocation models using SDN.</p>
+          <p>My final year thesis, <strong>Intelligent-Slicing</strong>, applies Multi-Agent Deep Deterministic Policy Gradient (MADDPG) to design a profitable, AI-assisted slicing framework for 5G-and-beyond healthcare networks — work that has already contributed to an IEEE peer-reviewed publication.</p>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-card"><div class="stat-num">3.76</div><div class="stat-label">CGPA / 4.00</div></div>
+          <div class="stat-card"><div class="stat-num">3</div><div class="stat-label">Peer-reviewed papers</div></div>
+          <div class="stat-card"><div class="stat-num">3+</div><div class="stat-label">Years in research</div></div>
+          <div class="stat-card"><div class="stat-num">3</div><div class="stat-label">Awards &amp; honors</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOURNEY -->
+  <section id="journey">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="section-label">02 / Journey</div>
+          <h2 class="section-title">Education &amp; research timeline</h2>
+        </div>
+        <p class="section-desc">From secondary school to peer-reviewed publications.</p>
+      </div>
+      <div class="timeline">
+        <div class="t-item">
+          <div class="t-dot"></div>
+          <div class="t-year">2017</div>
+          <div class="t-title">Secondary School Certificate (SSC), Science</div>
+          <div class="t-org">Banani Bidyaniketan School and College, Dhaka</div>
+          <div class="t-desc">GPA 5.00 / 5.00</div>
+        </div>
+        <div class="t-item">
+          <div class="t-dot"></div>
+          <div class="t-year">2019</div>
+          <div class="t-title">Higher Secondary Certificate (HSC), Science</div>
+          <div class="t-org">Shaheed Bir Uttam Lt. Anwar Girls' College, Dhaka</div>
+          <div class="t-desc">GPA 5.00 / 5.00</div>
+        </div>
+        <div class="t-item">
+          <div class="t-dot"></div>
+          <div class="t-year">2020</div>
+          <div class="t-title">Started B.Sc. in Computer Science &amp; Engineering</div>
+          <div class="t-org">Jagannath University, Dhaka</div>
+          <div class="t-desc">Final CGPA 3.76 / 4.00</div>
+        </div>
+        <div class="t-item is-current">
+          <div class="t-dot"></div>
+          <div class="t-year">Aug 2022 — Present</div>
+          <div class="t-title">Research Assistant (Undergraduate)</div>
+          <div class="t-org">Network and IoT Lab, Dept. of CSE, Jagannath University</div>
+          <div class="t-desc">Graph signal processing &amp; GNNs, AI-driven network slicing, multi-agent deep RL for QoS optimization, simulation and result visualization.</div>
+          <span class="t-tag">General Secretary, IEEE CS JnU — 2022</span>
+        </div>
+        <div class="t-item">
+          <div class="t-dot"></div>
+          <div class="t-year">2023</div>
+          <div class="t-title">Program Coordinator, IEEE Computer Society JnU</div>
+          <div class="t-desc">Awarded Best Campus Ambassador — IEEE Technical Writing Contest.</div>
+        </div>
+        <div class="t-item">
+          <div class="t-dot"></div>
+          <div class="t-year">2024</div>
+          <div class="t-title">Vice Chair, IEEE Computer Society JnU</div>
+          <div class="t-desc">Received the Leadership Excellence Award, IEEE CS Student Branch.</div>
+        </div>
+        <div class="t-item is-current">
+          <div class="t-dot"></div>
+          <div class="t-year">2025</div>
+          <div class="t-title">B.Sc. completed · 3 papers accepted · Runner-up, Sydney Coding Fest</div>
+          <div class="t-desc">Intelligent-Slicing thesis published at QPAIN 2025; two further co-authored papers accepted at ECCE 2025 and ICCIT 2025.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED THESIS -->
+  <section id="thesis">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="section-label">03 / Featured Research</div>
+          <h2 class="section-title">Final year thesis</h2>
+        </div>
+      </div>
+      <div class="thesis-card">
+        <span class="thesis-badge">IEEE Peer-Reviewed · QPAIN 2025</span>
+        <h3 class="thesis-title">Intelligent-Slicing: A Profitable Framework for 5G and Beyond Networks in Healthcare</h3>
+        <div class="thesis-super">Supervised by <strong>Dr. Selina Sharmin</strong>, Department of CSE, Jagannath University</div>
+        <ul class="thesis-list">
+          <li>Designed an AI-assisted network slicing framework for healthcare networks</li>
+          <li>Applied Multi-Agent Deep Deterministic Policy Gradient (MADDPG) for decision-making</li>
+          <li>Integrated dynamic pricing mechanisms for healthcare network services</li>
+          <li>Research outcomes contributed to an IEEE peer-reviewed publication</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- PUBLICATIONS -->
+  <section id="publications">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="section-label">04 / Publications</div>
+          <h2 class="section-title">Peer-reviewed conference papers</h2>
+        </div>
+        <p class="section-desc">All three accepted in 2025.</p>
+      </div>
+      <div class="pub-list">
+        <div class="pub-item">
+          <div class="pub-num">01</div>
+          <div>
+            <div class="pub-title">Intelligent-Slicing: A Profitable Framework for 5G and Beyond Networks in Healthcare</div>
+            <div class="pub-authors"><span class="me">Mosammat Shima Aktar</span>, S. M. Hemel Ahmed, Fahim Hasan, Selina Sharmin, Sajeeb Saha</div>
+            <div class="pub-venue">2025 Intl. Conference on Quantum Photonics, AI &amp; Networking (QPAIN)</div>
+          </div>
+        </div>
+        <div class="pub-item">
+          <div class="pub-num">02</div>
+          <div>
+            <div class="pub-title">Clustering-based Sampling and Regularization Techniques for Enhanced Graph Signal Reconstruction</div>
+            <div class="pub-authors">Fahim Hasan, <span class="me">Mosammat Shima Aktar</span>, Selina Sharmin, Maisha Muntaha, Sajeeb Saha</div>
+            <div class="pub-venue">2025 4th Intl. Conference on Electrical, Computer &amp; Communication Engineering (ECCE)</div>
+          </div>
+        </div>
+        <div class="pub-item">
+          <div class="pub-num">03</div>
+          <div>
+            <div class="pub-title">A Transformer-Based Multimodal Framework for Enhanced Autism Spectrum Disorder Diagnosis</div>
+            <div class="pub-authors">S. M. Himel Ahmed, Fahim Hasan, <span class="me">Mosammat Shima Aktar</span>, Sajeeb Saha, Selina Sharmin</div>
+            <div class="pub-venue">2025 28th Intl. Conference on Computer &amp; Information Technology (ICCIT)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="section-label">05 / Projects</div>
+          <h2 class="section-title">Applied builds</h2>
+        </div>
+        <p class="section-desc">Across web, mobile, IoT, and data science.</p>
+      </div>
+      <div class="proj-grid">
+        <div class="proj-card"><span class="proj-tag">Web Application</span><div class="proj-name">Hawkers Product Order and Delivery System</div></div>
+        <div class="proj-card"><span class="proj-tag">Android Application</span><div class="proj-name">Social App — Quora</div></div>
+        <div class="proj-card"><span class="proj-tag">Digital Image Processing</span><div class="proj-name">Brain Tumor Detection</div></div>
+        <div class="proj-card"><span class="proj-tag">IoT Project</span><div class="proj-name">Automatic Car Parking System</div></div>
+        <div class="proj-card"><span class="proj-tag">Cloud-based Project</span><div class="proj-name">Job Portal</div></div>
+        <div class="proj-card"><span class="proj-tag">Data Science Project</span><div class="proj-name">Crop Recommendation System</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="section-label">06 / Skills</div>
+          <h2 class="section-title">Toolkit &amp; languages</h2>
+        </div>
+      </div>
+      <div class="skills-grid">
+        <div>
+          <div class="skill-group-title">Programming</div>
+          <div class="skill-pills">
+            <span class="skill-pill">C</span><span class="skill-pill">C++</span>
+            <span class="skill-pill">Java</span><span class="skill-pill">Python</span>
+          </div>
+        </div>
+        <div>
+          <div class="skill-group-title">Tools</div>
+          <div class="skill-pills">
+            <span class="skill-pill">MATLAB</span><span class="skill-pill">Cisco Packet Tracer</span>
+            <span class="skill-pill">PyCharm</span><span class="skill-pill">LaTeX</span>
+          </div>
+        </div>
+        <div>
+          <div class="skill-group-title">Systems &amp; Web</div>
+          <div class="skill-pills">
+            <span class="skill-pill">Linux</span><span class="skill-pill">HTML</span>
+            <span class="skill-pill">CSS</span><span class="skill-pill">JavaScript</span>
+            <span class="skill-pill">PHP</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:56px; max-width:420px;">
+        <div class="skill-group-title">Language proficiency — IELTS Academic (Overall 6.5, CEFR B2)</div>
+        <div class="lang-row">
+          <div class="lang-name">Listening <span>7.0</span></div>
+          <div class="lang-bar"><div class="lang-fill" style="width:78%;"></div></div>
+        </div>
+        <div class="lang-row">
+          <div class="lang-name">Reading <span>6.5</span></div>
+          <div class="lang-bar"><div class="lang-fill" style="width:72%;"></div></div>
+        </div>
+        <div class="lang-row">
+          <div class="lang-name">Writing <span>6.5</span></div>
+          <div class="lang-bar"><div class="lang-fill" style="width:72%;"></div></div>
+        </div>
+        <div class="lang-row">
+          <div class="lang-name">Speaking <span>6.0</span></div>
+          <div class="lang-bar"><div class="lang-fill" style="width:67%;"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEADERSHIP + AWARDS -->
+  <section id="leadership">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="section-label">07 / Leadership &amp; Awards</div>
+          <h2 class="section-title">Beyond the lab</h2>
+        </div>
+      </div>
+      <div class="la-grid">
+        <div>
+          <div class="skill-group-title">Leadership — IEEE Computer Society, JnU</div>
+          <ul class="la-list">
+            <li><div><div class="la-role">Vice Chair</div><div class="la-org">IEEE CS, JnU</div></div><div class="la-date">Jan 2024 – Dec 2025</div></li>
+            <li><div><div class="la-role">Program Coordinator</div><div class="la-org">IEEE CS, JnU</div></div><div class="la-date">Jan 2023 – Dec 2023</div></li>
+            <li><div><div class="la-role">General Secretary</div><div class="la-org">IEEE CS, JnU</div></div><div class="la-date">Jan 2022 – Dec 2022</div></li>
+          </ul>
+        </div>
+        <div>
+          <div class="skill-group-title">Awards &amp; Honors</div>
+          <ul class="la-list">
+            <li><div><div class="la-role">Impactful Tech Award (Runner-up)</div><div class="la-org">University of Sydney Coding Fest</div></div><div class="la-date">2025</div></li>
+            <li><div><div class="la-role">Leadership Excellence Award</div><div class="la-org">IEEE CS Student Branch</div></div><div class="la-date">2024</div></li>
+            <li><div><div class="la-role">Best Campus Ambassador</div><div class="la-org">IEEE Technical Writing Contest</div></div><div class="la-date">2023</div></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap contact-inner">
+      <div class="section-label">08 / Contact</div>
+      <h2 class="contact-title">Open to research collaborations and <em>graduate opportunities.</em></h2>
+      <div class="contact-links">
+        <a class="btn btn-primary" href="mailto:b190305024@cse.jnu.ac.bd">Email me</a>
+        <a class="btn btn-ghost" href="tel:+8801580298753">+880 1580 298753</a>
+        <a class="btn btn-ghost" href="https://www.linkedin.com/in/mosammat-shima-aktar-01528b1b0/">LinkedIn</a>
+        <a class="btn btn-ghost" href="https://github.com/Shima3443">GitHub</a>
+        <a class="btn btn-ghost" href="https://scholar.google.com/citations?user=KikEGbkAAAAJ&hl=en&authuser=1">Google Scholar</a>
+      </div>
+
+      <div class="skill-group-title" style="margin-bottom:20px;">References</div>
+      <div class="refs">
+        <div class="ref-card">
+          <div class="ref-name">Dr. Selina Sharmin</div>
+          <div class="ref-role">Professor, Dept. of CSE, Jagannath University</div>
+          <div class="ref-contact">selina@cse.jnu.ac.bd<br>+88 01710 805209</div>
+        </div>
+        <div class="ref-card">
+          <div class="ref-name">Dr. Sajeeb Saha</div>
+          <div class="ref-role">Associate Professor, Dept. of CSE, Jagannath University</div>
+          <div class="ref-contact">sajeeb@cse.jnu.ac.bd<br>+88 01914 754181</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <span>© 2026 Mosammat Shima Aktar</span>
+    <span>Built with a graph-structured hero — because the research is too.</span>
+  </div>
+</footer>
+
+<script>
+  // Animated signal pulses along hero graph edges, echoing message-passing in a GNN.
+  (function(){
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(reduce) return;
+    const svgNS = "http://www.w3.org/2000/svg";
+    const pulseGroup = document.getElementById('pulses');
+    const edgeEls = document.querySelectorAll('#edges line');
+    const edges = Array.from(edgeEls).slice(0,6); // spokes only, from center
+    if(!pulseGroup || edges.length === 0) return;
+
+    edges.forEach((edge, i) => {
+      const dot = document.createElementNS(svgNS, 'circle');
+      dot.setAttribute('r', '3.2');
+      dot.setAttribute('fill', '#52D9CC');
+      dot.style.filter = 'drop-shadow(0 0 4px rgba(82,217,204,0.9))';
+      pulseGroup.appendChild(dot);
+
+      const x1 = parseFloat(edge.getAttribute('x1'));
+      const y1 = parseFloat(edge.getAttribute('y1'));
+      const x2 = parseFloat(edge.getAttribute('x2'));
+      const y2 = parseFloat(edge.getAttribute('y2'));
+      const duration = 2600;
+      const delay = i * 420;
+
+      function animate(ts, start){
+        if(!start) start = ts;
+        let elapsed = (ts - start - delay) % (duration + 1400);
+        if(elapsed < 0){
+          dot.setAttribute('opacity', '0');
+        } else if(elapsed <= duration){
+          const t = elapsed / duration;
+          const x = x1 + (x2 - x1) * t;
+          const y = y1 + (y2 - y1) * t;
+          dot.setAttribute('cx', x);
+          dot.setAttribute('cy', y);
+          dot.setAttribute('opacity', String(1 - Math.abs(t - 0.5) * 0.6));
+        } else {
+          dot.setAttribute('opacity', '0');
+        }
+        requestAnimationFrame((next) => animate(next, start));
+      }
+      requestAnimationFrame((first) => animate(first, first));
+    });
+
+    // Gentle breathing pulse on outer nodes
+    document.querySelectorAll('.hero-graph .node').forEach((node, i) => {
+      node.style.transformOrigin = 'center';
+      node.style.transformBox = 'fill-box';
+      node.animate(
+        [
+          { transform: 'scale(1)', opacity: 1 },
+          { transform: 'scale(1.08)', opacity: 0.75 },
+          { transform: 'scale(1)', opacity: 1 }
+        ],
+        { duration: 3200, iterations: Infinity, delay: i * 260, easing: 'ease-in-out' }
+      );
+    });
+  })();
+</script>
+
+</body>
+</html>
